@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex flex-col items-center justify-between p-24">
       <div className="text-center">
         <div className="bg-white p-4 rounded-lg shadow-md">
           <h2 className="text-2xl font-semibold">Corporate Yellow Pages</h2>
