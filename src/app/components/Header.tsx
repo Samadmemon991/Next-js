@@ -7,7 +7,7 @@ export default function Header() {
 
         <div className="flex items-center">
           <img
-            src="yellow-pages.svg"
+            src="/yellow-pages.svg"
             alt="Logo"
             className="h-10 w-10 mr-2"
           />
