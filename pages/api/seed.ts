@@ -13,6 +13,7 @@ export default async function seed(
     res: NextApiResponse<Data>
 ) {
 
+    await prisma.company_about.deleteMany({});
     await prisma.employee.deleteMany({});
     await prisma.company.deleteMany({});
 
@@ -33,11 +34,11 @@ export default async function seed(
         },
         {
             name: 'SystemsLtd',
-            logoSrc: 'data:image/jpeg;base64,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',
+            logoSrc: "https://www.phoneworld.com.pk/wp-content/uploads/2017/12/systems-limited.jpg"
         },
         {
             name: 'Tesla',
-            logoSrc: 'https://upload.wikimedia.org/wikipedia/commons/e/e8/Tesla_logo.png',
+            logoSrc: 'https://brandlogos.net/wp-content/uploads/2021/10/tesla-logo.png',
         },
         {
             name: 'Google',
@@ -96,6 +97,14 @@ export default async function seed(
         });
     }
 
+    await prisma.company_about.create({
+        data: {
+            about: 'Netflix is an American subscription video on-demand over-the-top streaming service owned and operated by Netflix, Inc. that primarily distributes original and acquired films and television shows from various genres, and it is available internationally in multiple languages.',
+            companyId: netflixId,
+        },
+    });
+
+
     console.log('Netflix data inserted successfully.');
 
 
@@ -141,6 +150,13 @@ export default async function seed(
         });
     }
 
+    await prisma.company_about.create({
+        data: {
+            about: 'Meta Platforms, Inc., doing business as Meta, and formerly named Facebook, Inc., and TheFacebook, Inc., is an American multinational technology conglomerate based in Menlo Park, California. The company owns and operates Facebook, Instagram, Threads, and WhatsApp, among other products and services.',
+            companyId: facebookId,
+        },
+    });
+
     console.log('Facebook data inserted successfully.');
 
     // Amazon employees
@@ -176,6 +192,14 @@ export default async function seed(
             data: employeeData,
         });
     }
+
+    await prisma.company_about.create({
+        data: {
+            about: 'Amazon.com, Inc. is an American multinational technology company focusing on e-commerce, cloud computing, online advertising, digital streaming, and artificial intelligence.',
+            companyId: amazonId,
+        },
+    });
+
 
     console.log('Amazon data inserted successfully.');
 
@@ -219,6 +243,14 @@ export default async function seed(
             data: employeeData,
         });
     }
+
+    await prisma.company_about.create({
+        data: {
+            about: 'Systems Limited is a Pakistani public technology company, involved in mortgage, apparel, retail and BPO services. Systems is the parent company of the Techvista Systems, Systems Arabia, Systems Misr and Techvista Qatar, NdcTech. It has a market capitalisation of around Rs. 115 billion as of June 2023.',
+            companyId: systemsLtdId,
+        },
+    });
+
 
     console.log('SystemsLtd data inserted successfully.');
 
@@ -271,6 +303,14 @@ export default async function seed(
         });
     }
 
+    await prisma.company_about.create({
+        data: {
+            about: 'Tesla, Inc. is an American multinational automotive and clean energy company headquartered in Austin, Texas. Tesla designs and manufactures electric vehicles, stationary battery energy storage devices from home to grid-scale, solar panels and solar shingles, and related products and services.',
+            companyId: teslaId,
+        },
+    });
+
+
     console.log('Tesla data inserted successfully.');
 
     // Google employees
@@ -320,6 +360,14 @@ export default async function seed(
             data: employeeData,
         });
     }
+
+    await prisma.company_about.create({
+        data: {
+            about: 'Google LLC is an American multinational technology company focusing on artificial intelligence, online advertising, search engine technology, cloud computing, computer software, quantum computing, e-commerce, and consumer electronics.',
+            companyId: googleId,
+        },
+    });
+
 
     console.log('Google data inserted successfully.');
 
