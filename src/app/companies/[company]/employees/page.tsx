@@ -1,31 +1,31 @@
-'use client';
-import { useRouter } from "next/navigation";
-
-const employeesData = [
-  {
-    id: 1,
-    name: 'John Doe',
-    position: 'Software Engineer',
-    department: 'Engineering',
-  },
-  {
-    id: 2,
-    name: 'Jane Smith',
-    position: 'Product Manager',
-    department: 'Product Management',
-  },
-];
+import { PrismaClient } from "@prisma/client";
+import Link from "next/link";
 
 interface employee {
-  id: number,
-  name: string,
-  position: string,
-  department: string,
+  id: number;
+  name: string;
+  imgSrc: string;
+  position: string;
+  department: string;
+  companyId: number;
 }
 
-export default function employees({ params }: { params: { company: string } }) {
+export default async function employees({ params }: { params: { company: string } }) {
   const company = params.company;
-  const router = useRouter();
+
+  const prisma = new PrismaClient();
+  const companyId = await prisma.company.findUnique({
+    where: {
+      name: company
+    }
+  });
+
+  const employeesData = await prisma.employee.findMany({
+    where: {
+      companyId: companyId?.id
+    }
+  });
+
 
   return (
     <div className="container mx-auto p-4">
@@ -38,16 +38,16 @@ export default function employees({ params }: { params: { company: string } }) {
             <th className="py-2 px-4">Department</th>
           </tr>
         </thead>
+
         <tbody>
           {employeesData.map((employee: employee) => (
             <tr
               key={employee.id}
               className="cursor-pointer hover:bg-gray-100"
-              onClick={() => router.push(`/companies/${company}/employees/${employee.id}`)}
             >
-              <td className="py-2 px-4">{employee.name}</td>
-              <td className="py-2 px-4">{employee.position}</td>
-              <td className="py-2 px-4">{employee.department}</td>
+              <td className="py-2 px-4"><Link href={`/companies/${company}/employees/${employee.id}`}>{employee.name}</Link></td>
+              <td className="py-2 px-4"><Link href={`/companies/${company}/employees/${employee.id}`}>{employee.position}</Link></td>
+              <td className="py-2 px-4"><Link href={`/companies/${company}/employees/${employee.id}`}>{employee.department}</Link></td>
             </tr>
           ))}
         </tbody>
@@ -55,4 +55,3 @@ export default function employees({ params }: { params: { company: string } }) {
     </div>
   );
 };
-
