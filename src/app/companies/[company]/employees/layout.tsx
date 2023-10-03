@@ -1,6 +1,7 @@
 import type { ResolvingMetadata } from 'next'
 import { PrismaClient } from '@prisma/client'
 import { ReactNode } from 'react';
+import Link from 'next/link';
 
 const prisma = new PrismaClient();
 
@@ -44,9 +45,13 @@ export default async function Layout({ params, children }: Props) {
           }) => (
             <li
               key={item.department}
+            >
+              <Link
+            href={`/companies/${params.company}/employees?department=${encodeURIComponent(item.department)}`}
               className='underline decoration-transparent hover:decoration-sky-500 cursor-pointer'
             >
               {item.department}
+            </Link>
             </li>
           ))}
         </ul>
