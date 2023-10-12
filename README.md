@@ -51,3 +51,10 @@ npm run dev
 
 ![Error](/app%20screenshots/Screenshot%20(81).png)
 > Error
+
+## Vercel deployment
+[Production](https://corporate-yellow-pages.vercel.app/)
+
+[Auto domain](http://corporate-yellow-pages-abdul-samads-projects-a3f2160a.vercel.app/)
+
+[Auto domain](http://corporate-yellow-page-git-d6a314-abdul-samads-projects-a3f2160a.vercel.app/)
